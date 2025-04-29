@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seznam místností</title>
+</head>
+<body>
+<h1>Seznam místností</h1>
+
+<a href="/rooms/add">Přidat místnost</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Název</th>
+        <th>Kapacita</th>
+        <th>Akce</th>
+    </tr>
+    <tr th:each="room : ${rooms}">
+        <td th:text="${room.id}"></td>
+        <td th:text="${room.name}"></td>
+        <td th:text="${room.capacity}"></td>
+        <td>
+            <a th:href="@{/rooms/{id}(id=${room.id})}">Detail</a>
+            <a th:href="@{/rooms/edit/{id}(id=${room.id})}">Upravit</a>
+            <a th:href="@{/rooms/delete/confirm/{id}(id=${room.id})}">Smazat</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
