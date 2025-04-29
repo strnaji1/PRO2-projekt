@@ -1,8 +1,9 @@
 package cz.uhk.pro2_d.model;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "lecturers")
@@ -12,18 +13,13 @@ public class Lecturer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Jméno lektora nesmí být prázdné")
     private String name;
 
     @OneToMany(mappedBy = "lecturer")
     private List<Course> courses;
 
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
+    // --- Gettery a settery ---
 
     public long getId() {
         return id;
@@ -39,5 +35,36 @@ public class Lecturer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    // --- equals(), hashCode(), toString() ---
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lecturer)) return false;
+        Lecturer lecturer = (Lecturer) o;
+        return id == lecturer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Long.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Lecturer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

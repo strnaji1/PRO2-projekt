@@ -9,7 +9,13 @@
 <a th:href="@{/users/}">List of Users</a><br>
 <a th:href="@{/lecturers/}">List of Lecturers</a><br>
 <a th:href="@{/courses/}">List of Courses</a><br>
-<a th:href="@{/rooms/}">List of Rooms</a><br>
 
+    <tr th:each="room : ${rooms}">
+        <td th:text="${room.id}"></td>
+        <td th:text="${room.name}"></td>
+        <td th:text="${room.capacity}"></td>
+    </tr>
+</table>
+<a href="/rooms">List of rooms</a>
 </body>
 </html>
