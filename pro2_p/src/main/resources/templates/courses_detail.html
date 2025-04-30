@@ -10,9 +10,8 @@
 
 <p><strong>ID:</strong> <span th:text="${course.id}"></span></p>
 <p><strong>Název:</strong> <span th:text="${course.name}"></span></p>
-<p><strong>Lektor:</strong> <span th:text="${course.lektorsName} ?: course.lecturer.name}"></span></p>
+<p><strong>Lektor:</strong> <span th:text="${course.lecturer.name}"></span></p>
 
-<!-- Kontrola, jestli kurz má přiřazenou místnost -->
 <div th:if="${course.room != null}">
     <p><strong>Místnost:</strong> <span th:text="${course.room.name}"></span></p>
     <p><strong>Kapacita místnosti:</strong> <span th:text="${course.room.capacity}"></span></p>
@@ -20,6 +19,7 @@
 <div th:if="${course.room == null}">
     <p><em>Místnost zatím není přiřazena.</em></p>
 </div>
+
 
 <a href="/courses/">Zpět na seznam kurzů</a>
 
