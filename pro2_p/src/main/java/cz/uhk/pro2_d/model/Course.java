@@ -3,7 +3,7 @@ package cz.uhk.pro2_d.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "courses")
@@ -23,6 +23,8 @@ public class Course {
     @NotNull(message = "Místnost musí být vybrána")
     private Room room;
 
+    @Min(value = 1, message = "Počet účastníků musí být alespoň 1")
+    private int participants;
 
     public Lecturer getLecturer() {
         return lecturer;
@@ -54,5 +56,13 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(int participants) {
+        this.participants = participants;
     }
 }

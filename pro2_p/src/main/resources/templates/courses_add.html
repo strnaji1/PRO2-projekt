@@ -25,6 +25,10 @@
     </select><br/>
     <div th:if="${#fields.hasErrors('lecturer')}" th:errors="*{lecturer}"></div><br/>
 
+    <label>Počet účastníků:</label><br/>
+    <input type="number" th:field="*{participants}" required /><br/>
+    <div th:if="${#fields.hasErrors('participants')}" th:errors="*{participants}"></div><br/>
+
     <label>Místnost:</label><br/>
     <select th:field="*{room}">
         <option th:each="room : ${rooms}"

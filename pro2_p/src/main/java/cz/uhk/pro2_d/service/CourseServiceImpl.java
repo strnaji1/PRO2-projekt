@@ -1,6 +1,7 @@
 package cz.uhk.pro2_d.service;
 
 import cz.uhk.pro2_d.model.Course;
+import cz.uhk.pro2_d.model.Room;
 import cz.uhk.pro2_d.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,9 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(long id) {
         courseRepository.deleteById(id);
     }
+    @Override
+    public int countCoursesByRoom(Room room) {
+        return courseRepository.findAllByRoom(room).size();
+    }
+
 }

@@ -11,4 +11,6 @@ public interface CourseService {
     void saveCourse(Course course);
     Course getCourse(long id);
     void deleteCourse(long id);
+
+    int countCoursesByRoom(cz.uhk.pro2_d.model.Room room);
 }

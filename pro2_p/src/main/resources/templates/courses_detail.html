@@ -11,6 +11,7 @@
 <p><strong>ID:</strong> <span th:text="${course.id}"></span></p>
 <p><strong>Název:</strong> <span th:text="${course.name}"></span></p>
 <p><strong>Lektor:</strong> <span th:text="${course.lecturer.name}"></span></p>
+<p><strong>Počet účastníků:</strong> <span th:text="${course.participants}"></span></p>
 
 <div th:if="${course.room != null}">
     <p><strong>Místnost:</strong> <span th:text="${course.room.name}"></span></p>
@@ -19,7 +20,6 @@
 <div th:if="${course.room == null}">
     <p><em>Místnost zatím není přiřazena.</em></p>
 </div>
-
 
 <a href="/courses/">Zpět na seznam kurzů</a>
 

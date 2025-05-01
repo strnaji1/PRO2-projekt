@@ -18,6 +18,7 @@ public class CourseController {
     private final CourseService courseService;
     private final LecturerService lecturerService;
     private final RoomService roomService;
+
     @Autowired
     public CourseController(CourseService courseService, LecturerService lecturerService, RoomService roomService) {
         this.courseService = courseService;
@@ -58,6 +59,11 @@ public class CourseController {
                           BindingResult result,
                           Model model) {
 
+        // Custom validace: účastníci ≤ kapacita místnosti
+        if (course.getRoom() != null && course.getParticipants() > course.getRoom().getCapacity()) {
+            result.rejectValue("participants", "error.course", "Počet účastníků překračuje kapacitu místnosti");
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("lecturers", lecturerService.getAllLecturers());
             model.addAttribute("rooms", roomService.getAllRooms());
@@ -79,6 +85,4 @@ public class CourseController {
         courseService.deleteCourse(id);
         return "redirect:/courses/";
     }
-
-
 }
