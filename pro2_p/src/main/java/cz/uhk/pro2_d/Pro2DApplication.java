@@ -1,7 +1,7 @@
 package cz.uhk.pro2_d;
 
-import cz.uhk.pro2_d.model.User;
-import cz.uhk.pro2_d.service.UserService;
+import cz.uhk.pro2_d.model.Player;
+import cz.uhk.pro2_d.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,34 +12,33 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class Pro2DApplication {
 
-    private final UserService userService;
+    private final PlayerService playerService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public Pro2DApplication(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
+    public Pro2DApplication(PlayerService playerService, PasswordEncoder passwordEncoder) {
+        this.playerService = playerService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
     public CommandLineRunner init() {
         return args -> {
-            addUser("User", "user", "heslo", "USER");
-            addUser("Admin", "admin", "heslo", "ADMIN");
+            addPlayer("User", "user", "heslo", "USER");
+            addPlayer("Admin", "admin", "heslo", "ADMIN");
         };
     }
 
-    private void addUser(String name, String username, String password, String role) {
-        User user = new User();
-        user.setName(name);
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setRole(role);
-        userService.saveUser(user);
+    private void addPlayer(String name, String username, String password, String role) {
+        Player player = new Player();
+        player.setName(name);
+        player.setUsername(username);
+        player.setPassword(passwordEncoder.encode(password));
+        player.setRole(role);
+        playerService.savePlayer(player);
     }
 
     public static void main(String[] args) {
         SpringApplication.run(Pro2DApplication.class, args);
     }
-
 }

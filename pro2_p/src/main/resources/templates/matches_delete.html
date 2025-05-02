@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Odstranit zápas</title>
+</head>
+<body>
+
+<h1 th:text="${match != null ? 'Opravdu chcete smazat zápas: ' + match.name : 'Zápas nenalezen'}"></h1>
+
+<form th:if="${match != null}" method="post"
+      th:action="@{'/matches/' + ${match.id} + '/delete'}">
+
+    <input type="submit" value="Ano, smazat!">
+    <a th:href="@{'/matches/' + ${match.id}}">Ne</a>
+
+</form>
+
+<a th:if="${match == null}" th:href="@{/matches/}">Zpět na seznam zápasů</a>
+
+</body>
+</html>

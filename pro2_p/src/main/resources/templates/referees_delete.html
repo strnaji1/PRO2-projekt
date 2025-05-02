@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Odstranit rozhodčího</title>
+</head>
+<body>
+
+<h1 th:text="${referee != null ? 'Opravdu chcete smazat rozhodčího: '
+                                + referee.name : 'Rozhodčí nenalezen'}"></h1>
+
+<form th:if="${referee != null}" method="post"
+      th:action="@{'/referees/' + ${referee.id} + '/delete'}">
+
+    <input type="submit" value="Ano, smazat!">
+    <a th:href="@{'/referees/' + ${referee.id}}">Ne</a>
+
+</form>
+
+<a th:if="${referee == null}" th:href="@{/referees/}">Zpět na seznam rozhodčích</a>
+
+</body>
+</html>

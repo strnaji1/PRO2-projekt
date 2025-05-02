@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Přidat / Upravit zápas</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1 th:text="${match.id} != null ? 'Upravit zápas' : 'Přidat zápas'"></h1>
+
+<form th:action="@{/matches/save}" th:object="${match}" method="post">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Název zápasu:</label><br/>
+    <input type="text" th:field="*{name}" required /><br/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
+
+    <label>Rozhodčí:</label><br/>
+    <select th:field="*{referee}">
+        <option th:each="referee : ${referees}"
+                th:value="${referee.id}"
+                th:text="${referee.name}">
+        </option>
+    </select><br/>
+    <div th:if="${#fields.hasErrors('referee')}" th:errors="*{referee}"></div><br/>
+
+    <label>Počet hráčů:</label><br/>
+    <input type="number" th:field="*{participants}" required /><br/>
+    <div th:if="${#fields.hasErrors('participants')}" th:errors="*{participants}"></div><br/>
+
+    <label>Aréna:</label><br/>
+    <select th:field="*{arena}">
+        <option th:each="arena : ${arenas}"
+                th:value="${arena.id}"
+                th:text="${arena.name} + ' (kapacita: ' + ${arena.capacity} + ')'">
+        </option>
+    </select><br/>
+    <div th:if="${#fields.hasErrors('arena')}" th:errors="*{arena}"></div><br/>
+
+    <button type="submit">Uložit</button>
+</form>
+
+<a href="/matches/">Zpět na seznam zápasů</a>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail hráče</title>
+</head>
+<body>
+
+<h1 th:text="${player != null ? 'Hráč: ' + player.name : 'Hráč nebyl nalezen.'}"></h1>
+
+<a th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/edit'}">Upravit hráče</a>
+<a th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/delete'}">Smazat hráče</a>
+
+<a th:if="${player == null}" th:href="@{/players/}">Zpět na seznam hráčů</a>
+
+</body>
+</html>

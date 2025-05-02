@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Přidat arénu</title>
+</head>
+<body>
+<h1>Přidat arénu</h1>
+
+<form th:action="@{/arenas/save}" th:object="${arena}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Název arény:</label><br/>
+    <input type="text" th:field="*{name}" required /><br/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
+
+    <label>Kapacita:</label><br/>
+    <input type="number" th:field="*{capacity}" required /><br/>
+    <div th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}"></div><br/>
+
+    <button type="submit">Uložit</button>
+</form>
+
+<a href="/arenas">Zpět</a>
+</body>
+</html>

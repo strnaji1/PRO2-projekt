@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detail zápasu</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Detail zápasu</h1>
+
+<p><strong>ID:</strong> <span th:text="${match.id}"></span></p>
+<p><strong>Název:</strong> <span th:text="${match.name}"></span></p>
+<p><strong>Rozhodčí:</strong> <span th:text="${match.referee.name}"></span></p>
+<p><strong>Počet hráčů:</strong> <span th:text="${match.participants}"></span></p>
+
+<div th:if="${match.arena != null}">
+    <p><strong>Aréna:</strong> <span th:text="${match.arena.name}"></span></p>
+    <p><strong>Kapacita arény:</strong> <span th:text="${match.arena.capacity}"></span></p>
+</div>
+<div th:if="${match.arena == null}">
+    <p><em>Aréna zatím není přiřazena.</em></p>
+</div>
+
+<a href="/matches/">Zpět na seznam zápasů</a>
+
+</body>
+</html>

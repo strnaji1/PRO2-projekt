@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Přidat / Upravit hráče</title>
+</head>
+<body>
+<h1 th:text="${player.id == 0 ? 'Nový hráč' : 'Upravit hráče'}"></h1>
+
+<form method="post" th:action="@{/players/save}" th:object="${player}">
+    <input type="hidden" th:field="*{id}">
+    Jméno: <input type="text" th:field="*{name}"><br/><br/>
+    <input type="submit" value="Uložit">
+</form>
+
+<a href="/players/">Zpět</a>
+</body>
+</html>

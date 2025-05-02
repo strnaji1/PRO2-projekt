@@ -1,8 +1,8 @@
 package cz.uhk.pro2_d.controller;
 
-import cz.uhk.pro2_d.service.CourseService;
-import cz.uhk.pro2_d.service.LecturerService;
-import cz.uhk.pro2_d.service.RoomService;
+import cz.uhk.pro2_d.service.MatchService;
+import cz.uhk.pro2_d.service.RefereeService;
+import cz.uhk.pro2_d.service.ArenaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class IndexController {
 
-    private final CourseService courseService;
-    private final LecturerService lecturerService;
-    private final RoomService roomService;
-
+    private final MatchService matchService;
+    private final RefereeService refereeService;
+    private final ArenaService arenaService;
 
     @Autowired
-    public IndexController(CourseService courseService, LecturerService lecturerService, RoomService roomService) {
-        this.courseService = courseService;
-        this.lecturerService = lecturerService;
-        this.roomService = roomService;
+    public IndexController(MatchService matchService, RefereeService refereeService, ArenaService arenaService) {
+        this.matchService = matchService;
+        this.refereeService = refereeService;
+        this.arenaService = arenaService;
     }
+
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("courseCount", courseService.getAllCourses().size());
-        model.addAttribute("lecturerCount", lecturerService.getAllLecturers().size());
-        model.addAttribute("roomCount", roomService.getAllRooms().size());
+        model.addAttribute("matchCount", matchService.getAllMatches().size());
+        model.addAttribute("refereeCount", refereeService.getAllReferees().size());
+        model.addAttribute("arenaCount", arenaService.getAllArenas().size());
         return "index";
     }
 
@@ -51,6 +51,4 @@ public class IndexController {
     public String forbidden() {
         return "403";
     }
-
-
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seznam rozhodčích</title>
+</head>
+<body>
+
+<h1>Seznam rozhodčích</h1>
+
+<a th:href="@{/referees/add}">Přidat nového rozhodčího</a>
+
+<ul>
+    <li th:each="referee : ${referees}">
+        <a th:href="@{'/referees/' + ${referee.id}}" th:text="${referee.name}"></a>
+    </li>
+</ul>
+
+<a href="/">Zpět</a>
+
+</body>
+</html>

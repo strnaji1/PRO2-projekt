@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smazání arény</title>
+</head>
+<body>
+<h1>Opravdu chceš smazat tuto arénu?</h1>
+
+<p><strong>ID:</strong> <span th:text="${arena.id}"></span></p>
+<p><strong>Název:</strong> <span th:text="${arena.name}"></span></p>
+<p><strong>Kapacita:</strong> <span th:text="${arena.capacity}"></span></p>
+
+<form th:action="@{/arenas/delete/{id}(id=${arena.id})}" method="post">
+    <button type="submit">Ano, smazat</button>
+</form>
+
+<a href="/arenas">Zpět bez smazání</a>
+</body>
+</html>

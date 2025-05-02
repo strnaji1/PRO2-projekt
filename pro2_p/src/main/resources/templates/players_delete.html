@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Smazání hráče</title>
+</head>
+<body>
+
+<h1 th:text="${player != null ? 'Opravdu chceš smazat hráče: ' + player.name : 'Hráč nebyl nalezen'}"></h1>
+
+<form th:if="${player != null}" method="post"
+      th:action="@{'/players/' + ${player.id} + '/delete'}">
+
+    <input type="submit" value="Ano, smazat">
+    <a th:href="@{'/players/' + ${player.id}}">Ne</a>
+
+</form>
+
+<a th:if="${player == null}" th:href="@{/players/}">Zpět na seznam hráčů</a>
+
+</body>
+</html>
