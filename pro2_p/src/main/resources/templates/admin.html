@@ -2,14 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>Administrace – Esport Liga</title>
     <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
 </head>
 <body>
 <div>
-    <h1>Admin Area</h1>
-    <p>This content is visible only to admins.</p>
-    <a th:href="@{/}">Back to Home</a>
+    <h1>Administrace Esport Ligy</h1>
+    <p>Tato sekce je přístupná pouze hráčům s rolí <strong>ADMIN</strong>.</p>
+
+    <ul>
+        <li><a th:href="@{/matches/}">Zápasy</a></li>
+        <li><a th:href="@{/players/}">Hráči</a></li>
+        <li><a th:href="@{/referees/}">Rozhodčí</a></li>
+        <li><a th:href="@{/arenas/}">Arény</a></li>
+    </ul>
+
+    <a th:href="@{/}">Zpět na hlavní stránku</a>
 </div>
 </body>
 </html>

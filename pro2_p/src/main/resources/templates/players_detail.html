@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Detail hráče</title>
@@ -8,8 +9,8 @@
 
 <h1 th:text="${player != null ? 'Hráč: ' + player.name : 'Hráč nebyl nalezen.'}"></h1>
 
-<a th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/edit'}">Upravit hráče</a>
-<a th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/delete'}">Smazat hráče</a>
+<a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/edit'}">Upravit hráče</a>
+<a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/delete'}">Smazat hráče</a>
 
 <a th:if="${player == null}" th:href="@{/players/}">Zpět na seznam hráčů</a>
 

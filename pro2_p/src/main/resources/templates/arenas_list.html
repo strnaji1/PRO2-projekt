@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Seznam arén</title>
     <meta charset="UTF-8">
@@ -7,7 +8,8 @@
 <body>
 <h1>Seznam arén</h1>
 
-<a href="/arenas/add">Přidat arénu</a>
+<a sec:authorize="hasRole('ROLE_ADMIN')" href="/arenas/add">Přidat arénu</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -23,8 +25,8 @@
         <td th:text="${arenaMatchCount[arena.id]}"></td>
         <td>
             <a th:href="@{/arenas/{id}(id=${arena.id})}">Detail</a>
-            <a th:href="@{/arenas/edit/{id}(id=${arena.id})}">Upravit</a>
-            <a th:href="@{/arenas/delete/confirm/{id}(id=${arena.id})}">Smazat</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/arenas/edit/{id}(id=${arena.id})}">Upravit</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/arenas/delete/confirm/{id}(id=${arena.id})}">Smazat</a>
         </td>
     </tr>
 </table>

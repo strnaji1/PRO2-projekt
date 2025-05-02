@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Detail rozhodčího</title>
@@ -8,8 +9,8 @@
 
 <h1 th:text="${referee != null ? 'Rozhodčí: ' + referee.name : 'Rozhodčí nenalezen.'}"></h1>
 
-<a th:if="${referee != null}" th:href="@{'/referees/' + ${referee.id} + '/edit'}">Upravit rozhodčího</a>
-<a th:if="${referee != null}" th:href="@{'/referees/' + ${referee.id} + '/delete'}">Smazat rozhodčího</a>
+<a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${referee != null}" th:href="@{'/referees/' + ${referee.id} + '/edit'}">Upravit rozhodčího</a>
+<a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${referee != null}" th:href="@{'/referees/' + ${referee.id} + '/delete'}">Smazat rozhodčího</a>
 
 <a th:if="${referee == null}" th:href="@{/referees/}">Zpět na seznam rozhodčích</a>
 
