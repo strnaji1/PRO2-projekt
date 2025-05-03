@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrace</title>
+</head>
+<body>
+
+<h2>Registrace nového hráče</h2>
+
+<form method="post" th:action="@{/register}" th:object="${player}">
+    <label>Jméno:</label><br/>
+    <input type="text" th:field="*{name}" required><br/><br/>
+
+    <label>Uživatelské jméno:</label><br/>
+    <input type="text" th:field="*{username}" required><br/>
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div><br/>
+
+    <label>Heslo:</label><br/>
+    <input type="password" th:field="*{password}" required><br/>
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div><br/>
+
+    <button type="submit">Registrovat</button>
+</form>
+
+<a th:href="@{/login}">Zpět na přihlášení</a>
+
+</body>
+</html>

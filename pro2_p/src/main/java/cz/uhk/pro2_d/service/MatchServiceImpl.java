@@ -1,7 +1,8 @@
 package cz.uhk.pro2_d.service;
 
-import cz.uhk.pro2_d.model.Match;
 import cz.uhk.pro2_d.model.Arena;
+import cz.uhk.pro2_d.model.Match;
+import cz.uhk.pro2_d.model.Player;
 import cz.uhk.pro2_d.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,24 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public int countMatchesByArena(Arena arena) {
         return matchRepository.findAllByArena(arena).size();
+    }
+
+    @Override
+    public void addPlayerToMatch(Match match, Player player) {
+        if (match.getPlayers().size() < match.getArena().getCapacity()) {
+            match.getPlayers().add(player);
+            matchRepository.save(match);
+        }
+    }
+
+    @Override
+    public void removePlayerFromMatch(Match match, Player player) {
+        match.getPlayers().remove(player);
+        matchRepository.save(match);
+    }
+
+    @Override
+    public boolean isPlayerInMatch(Match match, Player player) {
+        return match.getPlayers().contains(player);
     }
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <title>Seznam zápasů</title>
     <meta charset="UTF-8">
@@ -8,25 +7,27 @@
 <body>
 
 <h1>Seznam zápasů</h1>
+
 <a sec:authorize="hasRole('ROLE_ADMIN')" href="/matches/add">Přidat zápas</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Název</th>
         <th>Rozhodčí</th>
-        <th>Počet hráčů</th>
         <th>Aréna</th>
+        <th>Přihlášení</th>
         <th>Akce</th>
     </tr>
     <tr th:each="match : ${matches}">
         <td th:text="${match.id}"></td>
         <td th:text="${match.name}"></td>
         <td th:text="${match.referee.name}"></td>
-        <td th:text="${match.participants}"></td>
         <td th:text="${match.arena.name}"></td>
+        <td th:text="${match.players.size()} + '/' + ${match.arena.capacity}"></td>
         <td>
             <a th:href="@{/matches/{id}(id=${match.id})}">Detail</a>
-          <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/edit(id=${match.id})}">Upravit</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/edit(id=${match.id})}">Upravit</a>
             <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/delete(id=${match.id})}">Smazat</a>
         </td>
     </tr>

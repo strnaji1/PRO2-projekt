@@ -9,10 +9,20 @@
 
 <h1 th:text="${player != null ? 'Hráč: ' + player.name : 'Hráč nebyl nalezen.'}"></h1>
 
-<a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/edit'}">Upravit hráče</a>
-<a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${player != null}" th:href="@{'/players/' + ${player.id} + '/delete'}">Smazat hráče</a>
+<div th:if="${player != null}">
+    <h2>Přihlášen na zápasy:</h2>
+    <ul>
+        <li th:each="match : ${player.matches}">
+            <a th:href="@{'/matches/' + ${match.id}}" th:text="${match.name}"></a>
+        </li>
+        <li th:if="${player.matches == null or #lists.isEmpty(player.matches)}">Žádné zápasy.</li>
+    </ul>
 
-<a th:if="${player == null}" th:href="@{/players/}">Zpět na seznam hráčů</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/players/' + ${player.id} + '/edit'}">Upravit hráče</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/players/' + ${player.id} + '/delete'}">Smazat hráče</a>
+</div>
+
+<a th:href="@{/players/}">Zpět na seznam hráčů</a>
 
 </body>
 </html>

@@ -1,9 +1,12 @@
 package cz.uhk.pro2_d.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "matches")
@@ -27,7 +30,15 @@ public class Match {
     @Min(value = 1, message = "Počet hráčů musí být alespoň 1")
     private int participants;
 
-    // Gettery a settery
+    @ManyToMany
+    @JoinTable(
+            name = "match_players",
+            joinColumns = @JoinColumn(name = "match_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    private Set<Player> players = new HashSet<>();
+
+    // --- Gettery a settery ---
 
     public long getId() {
         return id;
@@ -67,5 +78,13 @@ public class Match {
 
     public void setParticipants(int participants) {
         this.participants = participants;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }

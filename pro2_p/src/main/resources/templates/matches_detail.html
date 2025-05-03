@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Detail zápasu</title>
     <meta charset="UTF-8">
@@ -11,15 +11,33 @@
 <p><strong>ID:</strong> <span th:text="${match.id}"></span></p>
 <p><strong>Název:</strong> <span th:text="${match.name}"></span></p>
 <p><strong>Rozhodčí:</strong> <span th:text="${match.referee.name}"></span></p>
-<p><strong>Počet hráčů:</strong> <span th:text="${match.participants}"></span></p>
+<p><strong>Počet přihlášených hráčů:</strong> <span th:text="${match.players.size()}"></span></p>
+<p><strong>Kapacita arény:</strong> <span th:text="${match.arena.capacity}"></span></p>
 
 <div th:if="${match.arena != null}">
     <p><strong>Aréna:</strong> <span th:text="${match.arena.name}"></span></p>
-    <p><strong>Kapacita arény:</strong> <span th:text="${match.arena.capacity}"></span></p>
 </div>
 <div th:if="${match.arena == null}">
     <p><em>Aréna zatím není přiřazena.</em></p>
 </div>
+
+<!-- Přihlašování / odhlašování hráče -->
+<div sec:authorize="hasRole('ROLE_USER')">
+    <form th:if="${!isRegistered and !full}"
+          th:action="@{'/matches/' + ${match.id} + '/register'}" method="post">
+        <button type="submit">Přihlásit se</button>
+    </form>
+
+    <form th:if="${isRegistered}"
+          th:action="@{'/matches/' + ${match.id} + '/unregister'}" method="post">
+        <button type="submit">Odhlásit se</button>
+    </form>
+</div>
+
+<h3>Přihlášení hráči:</h3>
+<ul>
+    <li th:each="player : ${match.players}" th:text="${player.name}"></li>
+</ul>
 
 <a href="/matches/">Zpět na seznam zápasů</a>
 

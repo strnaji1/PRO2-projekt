@@ -2,28 +2,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Přihlášení</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-<h2>Login</h2>
+
+<h2>Přihlášení</h2>
+
 <div th:if="${param.error}">
-    Invalid username and password.
+    Neplatné uživatelské jméno nebo heslo.
 </div>
 <div th:if="${param.logout}">
-    You have been logged out.
+    Byli jste odhlášeni.
 </div>
+
 <form th:action="@{/login}" method="post">
     <div>
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username"/>
+        <input type="text" id="username" name="username" required />
     </div>
     <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"/>
+        <label for="password">Heslo:</label>
+        <input type="password" id="password" name="password" required />
     </div>
     <div>
-        <button type="submit">Login</button>
+        <button type="submit">Přihlásit</button>
     </div>
 </form>
+
+<p>Nemáte účet? <a th:href="@{/register}">Zaregistrujte se</a></p>
+
 </body>
 </html>

@@ -1,6 +1,10 @@
 package cz.uhk.pro2_d.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "players")
@@ -10,10 +14,22 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Jméno nesmí být prázdné")
     private String name;
+
+    @NotBlank(message = "Uživatelské jméno nesmí být prázdné")
+    @Column(unique = true)
     private String username;
+
+    @NotBlank(message = "Heslo nesmí být prázdné")
     private String password;
+
     private String role;
+
+    @ManyToMany(mappedBy = "players")
+    private Set<Match> matches = new HashSet<>();
+
+    // --- GETTERY a SETTERY ---
 
     public long getId() {
         return id;
@@ -53,5 +69,13 @@ public class Player {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(Set<Match> matches) {
+        this.matches = matches;
     }
 }
