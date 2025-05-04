@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +31,10 @@ public class Match {
 
     @Min(value = 1, message = "Počet hráčů musí být alespoň 1")
     private int participants;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull(message = "Datum a čas musí být vyplněny")
+    private LocalDateTime dateTime;
 
     @ManyToMany
     @JoinTable(
@@ -78,6 +84,14 @@ public class Match {
 
     public void setParticipants(int participants) {
         this.participants = participants;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public Set<Player> getPlayers() {

@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
 <head>
     <meta charset="UTF-8">
     <title>Detail hráče</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="container py-5">
 
-<h1 th:text="${player != null ? 'Hráč: ' + player.name : 'Hráč nebyl nalezen.'}"></h1>
+<div class="card shadow-sm p-4">
+    <h1 th:text="${player != null ? 'Hráč: ' + player.name : 'Hráč nebyl nalezen.'}"></h1>
 
-<div th:if="${player != null}">
-    <h2>Přihlášen na zápasy:</h2>
-    <ul>
-        <li th:each="match : ${player.matches}">
-            <a th:href="@{'/matches/' + ${match.id}}" th:text="${match.name}"></a>
-        </li>
-        <li th:if="${player.matches == null or #lists.isEmpty(player.matches)}">Žádné zápasy.</li>
-    </ul>
+    <div th:if="${player != null}">
+        <h3 class="mt-4">Přihlášen na zápasy:</h3>
+        <ul class="list-group mb-3">
+            <li class="list-group-item" th:each="match : ${player.matches}">
+                <a th:href="@{'/matches/' + ${match.id}}" th:text="${match.name}"></a>
+            </li>
+            <li class="list-group-item text-muted" th:if="${player.matches == null or #lists.isEmpty(player.matches)}">
+                Žádné zápasy.
+            </li>
+        </ul>
 
-    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/players/' + ${player.id} + '/edit'}">Upravit hráče</a>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/players/' + ${player.id} + '/delete'}">Smazat hráče</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/players/' + ${player.id} + '/edit'}" class="btn btn-warning me-2">Upravit hráče</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/players/' + ${player.id} + '/delete'}" class="btn btn-danger">Smazat hráče</a>
+    </div>
+
+    <a th:href="@{/players/}" class="btn btn-secondary mt-4">Zpět na seznam hráčů</a>
 </div>
-
-<a th:href="@{/players/}">Zpět na seznam hráčů</a>
 
 </body>
 </html>

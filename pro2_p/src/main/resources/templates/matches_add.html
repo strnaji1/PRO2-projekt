@@ -1,56 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Přidat / Upravit zápas</title>
     <meta charset="UTF-8">
+    <title>Přidat / Upravit zápas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="container py-5">
 
-<h1 th:text="${match.id} != null ? 'Upravit zápas' : 'Přidat zápas'"></h1>
+<h1 th:text="${match.id} != null ? 'Upravit zápas' : 'Přidat zápas'" class="mb-4"></h1>
 
-<form th:action="@{/matches/save}" th:object="${match}" method="post">
+<form th:action="@{/matches/save}" th:object="${match}" method="post" class="needs-validation" novalidate>
     <input type="hidden" th:field="*{id}" />
 
-    <label>Název zápasu:</label><br/>
-    <input type="text" th:field="*{name}" required /><br/>
-    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
-
-    <label>Rozhodčí:</label><br/>
-    <select th:field="*{referee}">
-        <option th:each="ref : ${referees}"
-                th:value="${ref.id}"
-                th:text="${ref.name}">
-        </option>
-    </select><br/>
-    <div th:if="${#fields.hasErrors('referee')}" th:errors="*{referee}"></div><br/>
-
-    <label>Počet hráčů (celkem):</label><br/>
-    <input type="number" th:field="*{participants}" required /><br/>
-    <div th:if="${#fields.hasErrors('participants')}" th:errors="*{participants}"></div><br/>
-
-    <label>Aréna:</label><br/>
-    <select th:field="*{arena}">
-        <option th:each="arena : ${arenas}"
-                th:value="${arena.id}"
-                th:text="${arena.name} + ' (kapacita: ' + ${arena.capacity} + ')'">
-        </option>
-    </select><br/>
-    <div th:if="${#fields.hasErrors('arena')}" th:errors="*{arena}"></div><br/>
-
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        <label>Přihlášení hráči (drž Ctrl/Shift pro více výběrů):</label><br/>
-        <select multiple th:field="*{players}" size="6">
-            <option th:each="player : ${players}"
-                    th:value="${player.id}"
-                    th:text="${player.name} + ' (' + player.username + ')'">
-            </option>
-        </select><br/><br/>
+    <div class="mb-3">
+        <label class="form-label">Název zápasu:</label>
+        <input type="text" th:field="*{name}" class="form-control" required />
+        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     </div>
 
-    <button type="submit">Uložit</button>
-</form>
+    <div class="mb-3">
+        <label class="form-label">Datum a čas zápasu:</label>
+        <input type="datetime-local" th:field="*{dateTime}" class="form-control" required />
+        <div class="text-danger" th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></div>
+    </div>
 
-<a href="/matches/">Zpět na seznam zápasů</a>
+    <div class="mb-3">
+        <label class="form-label">Rozhodčí:</label>
+        <select th:field="*{referee}" class="form-select">
+            <option th:each="ref : ${referees}" th:value="${ref.id}" th:text="${ref.name}"></option>
+        </select>
+        <div class="text-danger" th:if="${#fields.hasErrors('referee')}" th:errors="*{referee}"></div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Počet hráčů (celkem):</label>
+        <input type="number" th:field="*{participants}" class="form-control" required />
+        <div class="text-danger" th:if="${#fields.hasErrors('participants')}" th:errors="*{participants}"></div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Aréna:</label>
+        <select th:field="*{arena}" class="form-select">
+            <option th:each="arena : ${arenas}"
+                    th:value="${arena.id}"
+                    th:text="${arena.name} + ' (kapacita: ' + ${arena.capacity} + ')'"></option>
+        </select>
+        <div class="text-danger" th:if="${#fields.hasErrors('arena')}" th:errors="*{arena}"></div>
+    </div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="mb-4">
+        <label class="form-label">Přihlášení hráči:</label>
+        <select multiple th:field="*{players}" class="form-select" size="6">
+            <option th:each="player : ${players}"
+                    th:value="${player.id}"
+                    th:text="${player.name} + ' (' + player.username + ')'"></option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Uložit</button>
+    <a href="/matches/" class="btn btn-secondary ms-2">Zpět na seznam zápasů</a>
+</form>
 
 </body>
 </html>

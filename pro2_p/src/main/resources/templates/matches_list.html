@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Seznam zápasů</title>
     <meta charset="UTF-8">
+    <title>Seznam zápasů</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="container py-5">
 
-<h1>Seznam zápasů</h1>
+<h1 class="mb-4">Seznam zápasů</h1>
 
-<a sec:authorize="hasRole('ROLE_ADMIN')" href="/matches/add">Přidat zápas</a>
+<div class="mb-3">
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/matches/add" class="btn btn-primary">Přidat zápas</a>
+</div>
 
-<table border="1">
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-light">
     <tr>
         <th>ID</th>
         <th>Název</th>
         <th>Rozhodčí</th>
         <th>Aréna</th>
+        <th>Datum a čas</th>
         <th>Přihlášení</th>
         <th>Akce</th>
     </tr>
-    <tr th:each="match : ${matches}">
+    </thead>
+    <tbody>
+    <tr th:each="match : ${matches}"
+        th:classappend="${match.players.contains(currentPlayer)} ? 'table-success'">
         <td th:text="${match.id}"></td>
         <td th:text="${match.name}"></td>
         <td th:text="${match.referee.name}"></td>
         <td th:text="${match.arena.name}"></td>
+        <td th:text="${#temporals.format(match.dateTime, 'dd.MM.yyyy HH:mm')}"></td>
         <td th:text="${match.players.size()} + '/' + ${match.arena.capacity}"></td>
         <td>
-            <a th:href="@{/matches/{id}(id=${match.id})}">Detail</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/edit(id=${match.id})}">Upravit</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/delete(id=${match.id})}">Smazat</a>
+            <a th:href="@{/matches/{id}(id=${match.id})}" class="btn btn-outline-info btn-sm">Detail</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/edit(id=${match.id})}" class="btn btn-outline-warning btn-sm">Upravit</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/matches/{id}/delete(id=${match.id})}" class="btn btn-outline-danger btn-sm">Smazat</a>
         </td>
     </tr>
+    </tbody>
 </table>
 
-<a href="/">Zpět na hlavní stránku</a>
+<a href="/" class="btn btn-secondary mt-3">Zpět na hlavní stránku</a>
 
 </body>
 </html>

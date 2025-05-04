@@ -3,36 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Přidat / Upravit hráče</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="container py-5">
 
-<h1 th:text="${player.id == 0 ? 'Nový hráč' : 'Upravit hráče'}"></h1>
+<h1 th:text="${player.id == 0 ? 'Nový hráč' : 'Upravit hráče'}" class="mb-4"></h1>
 
-<form method="post" th:action="@{/players/save}" th:object="${player}">
-    <input type="hidden" th:field="*{id}">
+<form method="post" th:action="@{/players/save}" th:object="${player}" class="needs-validation" novalidate>
+    <input type="hidden" th:field="*{id}"/>
 
-    <label>Jméno:</label><br/>
-    <input type="text" th:field="*{name}" required><br/>
-    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div><br/>
+    <div class="mb-3">
+        <label class="form-label">Jméno:</label>
+        <input type="text" th:field="*{name}" class="form-control" required>
+        <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
 
-    <label>Uživatelské jméno:</label><br/>
-    <input type="text" th:field="*{username}" required><br/>
-    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div><br/>
+    <div class="mb-3">
+        <label class="form-label">Uživatelské jméno:</label>
+        <input type="text" th:field="*{username}" class="form-control" required>
+        <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    </div>
 
-    <label>Heslo:</label><br/>
-    <input type="password" th:field="*{password}" required><br/>
-    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div><br/>
+    <div class="mb-3">
+        <label class="form-label">Heslo:</label>
+        <input type="password" th:field="*{password}" class="form-control" required>
+        <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    </div>
 
-    <label>Role:</label><br/>
-    <select th:field="*{role}">
-        <option value="USER">USER</option>
-        <option value="ADMIN">ADMIN</option>
-    </select><br/><br/>
+    <div class="mb-3">
+        <label class="form-label">Role:</label>
+        <select th:field="*{role}" class="form-select">
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+        </select>
+    </div>
 
-    <input type="submit" value="Uložit">
+    <button type="submit" class="btn btn-success">Uložit</button>
+    <a href="/players/" class="btn btn-secondary ms-2">Zpět</a>
 </form>
-
-<a href="/players/">Zpět</a>
 
 </body>
 </html>

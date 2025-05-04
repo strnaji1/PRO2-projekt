@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Administrace – Esport Liga</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<div>
-    <h1>Administrace Esport Ligy</h1>
-    <p>Tato sekce je přístupná pouze hráčům s rolí <strong>ADMIN</strong>.</p>
+<body class="bg-light">
 
-    <ul>
-        <li><a th:href="@{/matches/}">Zápasy</a></li>
-        <li><a th:href="@{/players/}">Hráči</a></li>
-        <li><a th:href="@{/referees/}">Rozhodčí</a></li>
-        <li><a th:href="@{/arenas/}">Arény</a></li>
-    </ul>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">Administrace Esport Ligy</h1>
+            <p class="text-center text-muted">Tato sekce je přístupná pouze hráčům s rolí <strong>ADMIN</strong>.</p>
 
-    <a th:href="@{/}">Zpět na hlavní stránku</a>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><a th:href="@{/matches/}">Zápasy</a></li>
+                <li class="list-group-item"><a th:href="@{/players/}">Hráči</a></li>
+                <li class="list-group-item"><a th:href="@{/referees/}">Rozhodčí</a></li>
+                <li class="list-group-item"><a th:href="@{/arenas/}">Arény</a></li>
+            </ul>
+
+            <div class="text-center">
+                <a th:href="@{/}" class="btn btn-secondary">Zpět na hlavní stránku</a>
+            </div>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
