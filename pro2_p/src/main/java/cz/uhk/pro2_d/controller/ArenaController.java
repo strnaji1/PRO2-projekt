@@ -23,7 +23,10 @@ public class ArenaController {
 
     @Autowired
     private MatchService matchService;
-
+    public ArenaController(ArenaService arenaService, MatchService matchService) {
+        this.arenaService = arenaService;
+        this.matchService = matchService;
+    }
     @GetMapping({"", "/"})
     public String listArenas(Model model) {
         var arenas = arenaService.getAllArenas();
