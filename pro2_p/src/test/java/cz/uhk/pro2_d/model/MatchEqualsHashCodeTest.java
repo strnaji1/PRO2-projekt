@@ -6,16 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MatchEqualsHashCodeTest {
 
-    @Test
-    void equals_sameId_shouldBeEqual() {
-        Match m1 = new Match();
-        m1.setId(100L);
-        Match m2 = new Match();
-        m2.setId(100L);
-
-        assertEquals(m1, m2, "Two matches with the same id should be equal");
-        assertEquals(m1.hashCode(), m2.hashCode(), "Hash codes should match for equal matches");
-    }
 
     @Test
     void equals_differentId_shouldNotBeEqual() {

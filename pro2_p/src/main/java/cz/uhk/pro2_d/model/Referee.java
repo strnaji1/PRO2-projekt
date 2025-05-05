@@ -19,7 +19,6 @@ public class Referee {
     @OneToMany(mappedBy = "referee")
     private List<Match> matches;
 
-    // --- Gettery a settery ---
 
     public long getId() {
         return id;
@@ -45,7 +44,6 @@ public class Referee {
         this.matches = matches;
     }
 
-    // --- equals(), hashCode(), toString() ---
 
     @Override
     public boolean equals(Object o) {

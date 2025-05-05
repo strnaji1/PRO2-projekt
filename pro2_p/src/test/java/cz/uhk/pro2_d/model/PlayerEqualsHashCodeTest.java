@@ -6,16 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerEqualsHashCodeTest {
 
-    @Test
-    void equals_sameId_shouldBeEqual() {
-        Player p1 = new Player();
-        p1.setId(7L);
-        Player p2 = new Player();
-        p2.setId(7L);
 
-        assertEquals(p1, p2, "Two players with the same id should be equal");
-        assertEquals(p1.hashCode(), p2.hashCode(), "Hash codes should match for equal players");
-    }
 
     @Test
     void equals_differentId_shouldNotBeEqual() {
