@@ -1,1 +1,5 @@
 # PRO2-projekt
+Aplikace pro tvoření Esport eventů (vytvoření eventu a přihlášení na event , vytvoření svého účtu "USER a ADMIN role"
+ Admin má přístup k CRUD u všech listů a to Matches, Arena , User a Referee Lists)
+ User se může registrovat a přihlásit na turnaje + koukat se na listy
+Java + HTML s Booststrapem s ORM dbs (4modelové třídy, testovací, přihlášení , )
