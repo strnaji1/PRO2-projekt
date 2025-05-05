@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Seznam arén</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+
+<h1 class="mb-4">Seznam arén</h1>
+
+<div class="mb-3">
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/arenas/add" class="btn btn-primary">Přidat arénu</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+    <tr>
+        <th>ID</th>
+        <th>Název</th>
+        <th>Kapacita</th>
+        <th>Počet zápasů</th>
+        <th>Akce</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="arena : ${arenas}">
+        <td th:text="${arena.id}"></td>
+        <td th:text="${arena.name}"></td>
+        <td th:text="${arena.capacity}"></td>
+        <td th:text="${arenaMatchCount[arena.id]}"></td>
+        <td>
+            <a class="btn btn-sm btn-info" th:href="@{/arenas/{id}(id=${arena.id})}">Detail</a>
+            <a class="btn btn-sm btn-warning" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/arenas/edit/{id}(id=${arena.id})}">Upravit</a>
+            <a class="btn btn-sm btn-danger" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/arenas/delete/confirm/{id}(id=${arena.id})}">Smazat</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/" class="btn btn-secondary mt-3">Zpět na hlavní stránku</a>
+
+</body>
+</html>
